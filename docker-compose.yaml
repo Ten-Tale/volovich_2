@@ -5,16 +5,9 @@ networks:
   project:
     name: "project"
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.5.0.0/16
-          ip_range: 10.5.0.0/24
-          gateway: 10.5.0.1
-          aux_addresses:
-            kafka: 10.5.0.2
-            zookeeper: 10.5.0.3
+
 services:
+  # Kafka
   kafka:
     image: 'bitnami/kafka:latest'
     ports:
@@ -40,3 +33,19 @@ services:
     environment:
       - KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_CLUSTERS_0_NAME=kraft
+
+  # App services
+  redis-app:
+    build: ./services/redis
+    restart: always
+    depends_on:
+    - redis
+    env_file: .env
+    networks:
+      - project
+
+  ## DB services
+  redis:
+    image: redis
+    networks:
+      - project
