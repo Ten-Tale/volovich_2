@@ -6,16 +6,21 @@ services:
   # REDIS
   redis-api:
     depends_on:
-      - connect
+      - redis
     build:
       context: services/redis
       dockerfile: Dockerfile
-    restart: unless-stopped
+    command: ./uni
+    env_file:
+      - .env
+#    restart: unless-stopped
 
 
   redis:
     image: redis
     restart: unless-stopped
+    depends_on:
+      - connect
 
   # POSTGRES
   postgres-api:
@@ -27,6 +32,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    command:
+      - ./uni
 
   postgres:
     depends_on:
@@ -38,6 +45,12 @@ services:
     restart: unless-stopped
     volumes:
       - database:/var/lib/postgresql/data
+    env_file:
+      - .env
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
 
 # KAFKA
   broker:

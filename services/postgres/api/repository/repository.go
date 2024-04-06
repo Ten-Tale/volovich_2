@@ -1,15 +1,17 @@
 package repository
 
 import (
+	"context"
 	"fmt"
-	"github.com/redis/go-redis/v9"
+	"github.com/jackc/pgx/v5"
 	"os"
 )
 
-func NewClient() *redis.Client {
-	return redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%s", os.Getenv("REDIS_ADDR"), os.Getenv("REDIS_PORT")),
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
+func NewClient() (*pgx.Conn, error) {
+	conn, err := pgx.Connect(context.Background(), fmt.Sprintf("postgres://%s:%s@%s:%s/%s", os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_ADDR"), os.Getenv("POSTGRES_PORT"), os.Getenv("POSTGRES_DB")))
+	if err != nil {
+		return nil, err
+	}
+
+	return conn, nil
 }

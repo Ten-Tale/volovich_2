@@ -1,0 +1,13 @@
+{
+  "name": "fulfillment-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "1234",
+    "database.dbname" : "postgres",
+    "topic.prefix": "fulfillment",
+    "table.include.list": "public.inventory"
+  }
+}
