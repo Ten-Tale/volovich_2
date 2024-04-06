@@ -1,6 +1,7 @@
 version: "3.8"
 volumes:
   kafka_volume:
+
 networks:
   project:
     name: "project"
@@ -24,8 +25,10 @@ services:
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_KRAFT_CLUSTER_ID=L0ZEQh1yTbGhNNUE7-6wSQ
+      - CONNECT_PLUGIN_PATH='/usr/share/java,/data/connectors/'
     volumes:
       - kafka_volume:/bitnami/kafka
+      - connectors:/data/connectors
   ui:
     image: provectuslabs/kafka-ui:latest
     ports:

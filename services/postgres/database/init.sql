@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS groups(
+    id VARCHAR(12) PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS students(
+    id      VARCHAR(8) PRIMARY KEY,
+    name    VARCHAR(20) NOT NULL,
+    surname VARCHAR(20) NOT NULL,
+    group_fk VARCHAR(12) REFERENCES groups(id)
+);

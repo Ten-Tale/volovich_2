@@ -1,5 +1,5 @@
-.PHONY: build
-build:
+.PHONY: up
+up:
 	docker-compose up --build --force-recreate -d
 
 .PHONY: down
