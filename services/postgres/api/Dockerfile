@@ -10,4 +10,4 @@ LABEL authors="Stolnikov M."
 RUN apk add git make libc6-compat
 WORKDIR /app
 COPY --from=builder /app/uni /app/uni
-COPY broker/config.json /app/config.json
+COPY broker/config.json /app/postgres-connector.json

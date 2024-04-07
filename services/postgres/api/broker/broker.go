@@ -9,7 +9,7 @@ import (
 )
 
 func InitConnector() error {
-	fileData, err := os.ReadFile("config.json")
+	fileData, err := os.ReadFile("postgres-connector.json")
 	if err != nil {
 		return err
 	}

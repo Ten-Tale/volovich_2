@@ -1,0 +1,13 @@
+{
+  "name": "redis-sink-json",
+  "config": {
+    "connector.class": "com.redis.kafka.connect.RedisSinkConnector",
+    "tasks.max": "1",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+    "redis.command": "SET",
+    "redis.uri": "redis://redis:6379",
+    "redis.hosts": "redis:6379",
+    "topics": "university.public.students"
+  }
+}

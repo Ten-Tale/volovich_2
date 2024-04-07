@@ -13,8 +13,8 @@ const connectorConfig = "{" +
 	"\"config\": {\n" +
 	"\"connector.class\": \"com.github.jcustenborder.kafka.connect.redis.RedisSinkConnector\",\n" +
 	"\"tasks.max\": \"1\",\n" +
-	"\"topics\": \"students\",\n" +
-	"\"redis.hosts\": \"redis:6379\",\n" +
+	"\"topics\": \"university.public.students\",\n" +
+	"\"\": \"redis:6379\",\n" +
 	"\"redis.uri\": \"redis://redis:6379\",\n" +
 	"\"key.converter\": \"org.apache.kafka.connect.storage.StringConverter\",\n" +
 	"\"value.converter\": \"org.apache.kafka.connect.json.JsonConverter\",\n" +
@@ -23,10 +23,15 @@ const connectorConfig = "{" +
 	"}"
 
 func InitConnector() error {
+	fileData, err := os.ReadFile("redis-connector.json")
+	if err != nil {
+		return err
+	}
+
 	resp, err := http.Post(
 		fmt.Sprintf("http://%s:%s/connectors", os.Getenv("KAFKA_CONNECT_ADDR"), os.Getenv("KAFKA_CONNECT_PORT")),
 		"application/json",
-		bytes.NewReader([]byte(connectorConfig)),
+		bytes.NewReader(fileData),
 	)
 
 	if err != nil {
@@ -39,3 +44,6 @@ func InitConnector() error {
 
 	return nil
 }
+
+// psql -U postgres -d university
+// insert into public.students(id, name, surname) values('12345678', 'name', 'surname');
