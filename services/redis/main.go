@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	for range 10 {
+	for range 20 {
 		err := broker.InitConnector()
 		if err != nil {
 			fmt.Printf("init redis broker failed, err:%v\n", err)

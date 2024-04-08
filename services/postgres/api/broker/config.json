@@ -9,6 +9,8 @@
     "database.password": "1234",
     "database.dbname" : "university",
     "topic.prefix": "university",
-    "table.include.list": "public.students"
+    "table.include.list": "public.students",
+    "key.converter.schemas.enable": false,
+    "value.converter.schemas.enable": false
   }
 }

@@ -8,20 +8,6 @@ import (
 	"os"
 )
 
-const connectorConfig = "{" +
-	"\"name\": \"redis-sink\",\n" +
-	"\"config\": {\n" +
-	"\"connector.class\": \"com.github.jcustenborder.kafka.connect.redis.RedisSinkConnector\",\n" +
-	"\"tasks.max\": \"1\",\n" +
-	"\"topics\": \"university.public.students\",\n" +
-	"\"\": \"redis:6379\",\n" +
-	"\"redis.uri\": \"redis://redis:6379\",\n" +
-	"\"key.converter\": \"org.apache.kafka.connect.storage.StringConverter\",\n" +
-	"\"value.converter\": \"org.apache.kafka.connect.json.JsonConverter\",\n" +
-	"\"value.converter.schemas.enable\": \"false\"\n" +
-	"}\n" +
-	"}"
-
 func InitConnector() error {
 	fileData, err := os.ReadFile("redis-connector.json")
 	if err != nil {
